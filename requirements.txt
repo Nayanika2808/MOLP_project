@@ -2,3 +2,4 @@ scikit-learn
 numpy
 flake8
 pytest
+mlflow
