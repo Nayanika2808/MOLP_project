@@ -37,6 +37,8 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Run pytest
+        env:
+          PYTHONPATH: ${{ github.workspace }}
         run: pytest tests/ --disable-warnings
 
   deploy:
@@ -47,4 +49,5 @@ jobs:
         uses: actions/checkout@v3
       - name: Deployment script
         run: echo "Deployment process would go here."
+
 
