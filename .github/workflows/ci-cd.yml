@@ -23,9 +23,7 @@ jobs:
         run: pip install flake8
       - name: Run flake8 linting
         run: flake8 src/
-       - name: Run MLflow test
-        run:  python src/main.py
-     
+
   test:
     name: Running Tests
     runs-on: ubuntu-latest
@@ -43,13 +41,7 @@ jobs:
           PYTHONPATH: ${{ github.workspace }}
         run: pytest tests/ --disable-warnings
 
-  deploy:
-    name: Deployment Placeholder
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Deployment script
-        run: echo "Deployment process would go here."
+  mlflow_test:
+    name: MLflow Test Integration
 
 
