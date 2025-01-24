@@ -23,7 +23,9 @@ jobs:
         run: pip install flake8
       - name: Run flake8 linting
         run: flake8 src/
-
+       - name: Run MLflow test
+        run:  python src/main.py
+     
   test:
     name: Running Tests
     runs-on: ubuntu-latest
