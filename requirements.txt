@@ -3,3 +3,4 @@ numpy
 flake8
 pytest
 mlflow
+dvc
