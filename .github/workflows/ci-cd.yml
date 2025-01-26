@@ -10,7 +10,7 @@ on:
 
 jobs:
   lint:
-    name: Linting Code
+    name: Lint Code
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -18,27 +18,27 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.8'
-      - name: Install flake8
-        run: pip install flake8
-      - name: Run flake8 linting
-        run: flake8 src/
-
-  test:
-    name: Running Tests
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.8'
+          python-version: "3.8"
       - name: Install dependencies
         run: pip install -r requirements.txt
-      - name: Run pytest
-        env:
-          PYTHONPATH: ${{ github.workspace }}
+      - name: Install flake8
+        run: pip install flake8
+      - name: Run linting
+        run: flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.8"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run tests
         run: pytest tests/ --disable-warnings
 
   mlflow_test:
@@ -50,20 +50,33 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.8'
+          python-version: "3.8"
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Run MLflow test
         run: python src/main.py
 
-  deploy:
-    name: Deployment Placeholder
+  build:
+    name: Build Docker Image
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Deployment script
-        run: echo "Deployment process would go here."
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.8"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Log into DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Build Docker Image
+        run: docker build -t <your-dockerhub-username>/<image-name>:latest .
+      - name: Push Docker Image to DockerHub
+        run: docker push <your-dockerhub-username>/<image-name>:latest
 
 
 
