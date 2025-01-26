@@ -41,7 +41,7 @@ for i, config in enumerate(configurations):
         if config.get("additional_data", False):
             mlflow.log_param("additional_data", True)
 
-        # Log metrics
+        # Log metric
         mlflow.log_metric("score", model.score(X_train, y_train))
         mlflow.log_metric("coefficient", model.coef_[0])
 
