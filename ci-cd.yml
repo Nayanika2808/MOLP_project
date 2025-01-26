@@ -19,6 +19,8 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: "3.8"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
       - name: Install flake8
         run: pip install flake8
       - name: Run linting
@@ -39,12 +41,33 @@ jobs:
       - name: Run tests
         run: pytest --disable-warnings
 
+  mlflow_test:
+    name: MLflow Test Integration
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.8"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run MLflow test
+        run: python src/main.py
+
   build:
     name: Build Docker Image
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.8"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
       - name: Log into DockerHub
         uses: docker/login-action@v2
         with:
