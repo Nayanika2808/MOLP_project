@@ -28,3 +28,19 @@ stages:
       hash: md5
       md5: 51b020721c1bb8f6e2d2486651f0edee
       size: 420
+  tune_model:
+    cmd: python train_tune.py
+    deps:
+    - path: data/preprocessed_data.csv
+      hash: md5
+      md5: cdd9f2da88c984e583870f9b1cfc8c5d
+      size: 34
+    - path: train_tune.py
+      hash: md5
+      md5: 7b754fe02a76253e09323096b8a0fc7a
+      size: 743
+    outs:
+    - path: best_model.pkl
+      hash: md5
+      md5: 51b020721c1bb8f6e2d2486651f0edee
+      size: 420

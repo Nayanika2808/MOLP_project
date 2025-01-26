@@ -1,6 +1,3 @@
-scikit-learn
-numpy
-flake8
-pytest
-mlflow
-dvc
+flask
+numpy==1.23.5
+scikit-learn==1.1.3

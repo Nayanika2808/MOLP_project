@@ -13,3 +13,10 @@ stages:
     - train.py
     outs:
     - model.pkl
+  tune_model:
+    cmd: python train_tune.py
+    deps:
+    - data/preprocessed_data.csv
+    - train_tune.py
+    outs:
+    - best_model.pkl
