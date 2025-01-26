@@ -38,6 +38,8 @@ jobs:
           python-version: "3.8"
       - name: Install dependencies
         run: pip install -r requirements.txt
+      - name: Set PYTHONPATH
+        run: echo "PYTHONPATH=$(pwd):$PYTHONPATH" >> $GITHUB_ENV
       - name: Run tests
         run: pytest tests/ --disable-warnings
 
@@ -53,6 +55,8 @@ jobs:
           python-version: "3.8"
       - name: Install dependencies
         run: pip install -r requirements.txt
+      - name: Set PYTHONPATH
+        run: echo "PYTHONPATH=$(pwd):$PYTHONPATH" >> $GITHUB_ENV
       - name: Run MLflow test
         run: python src/main.py
 
